@@ -12,7 +12,14 @@ To tell NestJs that a class is a module, you need to annotate it with the @Modul
 
 ## Exercise 1:
 
+- checkout the exercise branch using `git checkout exercise-1`
 - run the app using the command `npm run start:dev`
+- notice in the terminal the line `AppModule dependencies initialized`
+- we also want to read TasksModule dependencies initialised and for that we need to let NestJs know that we want to include this in the app
 - Go to app.module.ts
 - Notice that AppModule has no dependencies.
 - Import TasksModule and declare that it is a dependency of AppModule
+- Save and notice the line TasksModule dependencies initialized
+- Create another module with the name of your choosing
+- Let NestJs know that you also want this module to be included in the app
+- Does it matter where you import the module?
