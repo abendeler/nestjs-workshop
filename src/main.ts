@@ -1,29 +1,31 @@
-import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
-import { Logger, ValidationPipe } from '@nestjs/common';
+// app.js (Integrating NestJS into Express)
+import express, { Request, Response } from "express";
+import { NestFactory } from "@nestjs/core";
+import { ExpressAdapter } from "@nestjs/platform-express";
+import { NestModule } from "./nestjs/nest.module"; // Import the NestJS module
+
+const app = express();
+const port = 3000;
+
+// Existing Express route
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello from Express!");
+});
+
+// Existing Express API route
+app.get("/api/data", (req: Request, res: Response) => {
+  res.json({ message: "Data from Express API" });
+});
 
 async function bootstrap() {
-  const logger = new Logger(bootstrap.name);
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
-  const configService = app.get<ConfigService>(ConfigService);
-  const config = new DocumentBuilder()
-    .setTitle('NestJs Workshop part 1')
-    .setDescription('Welcome to the NestJs Workshop part 1')
-    .setVersion('1.0')
-    .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, documentFactory);
-  const port: number = configService.getOrThrow('PORT');
-  await app.listen(port);
-  logger.log(`server listening on port ${port}`);
+  const nestApp = await NestFactory.create(NestModule, new ExpressAdapter(app));
+  nestApp.setGlobalPrefix("api"); // Optional: add a global prefix for NestJS routes
+  await nestApp.init(); // Initialize the NestJS app inside the Express app
 }
+
 bootstrap();
+
+// Start the Express app
+app.listen(port, () => {
+  console.log(`Express app listening at http://localhost:${port}`);
+});
