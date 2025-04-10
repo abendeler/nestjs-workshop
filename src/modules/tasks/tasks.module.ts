@@ -1,10 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TasksController } from './tasks.controller';
-import { TasksRepository } from './tasks.repository';
-import { TasksService } from './tasks.service';
 
-@Module({
-  providers: [TasksService, TasksRepository],
-  controllers: [TasksController],
-})
+// FIXME: declare the controller as part of the tasks module
+@Module({ controllers: [] })
 export class TasksModule {}
