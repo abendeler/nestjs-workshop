@@ -39,7 +39,6 @@ export function CreatorHeader(): ParameterDecorator {
       ApiHeader({
         required: false,
         name: 'x-creator',
-        description: `The 'x-bp-claim' header forces the BP claim on the user session. Only for testing purposes, disabled in production.`,
         schema: { type: 'string' },
         examples: {
           anthony: { summary: 'Anthony', value: 'anthony.bendeler' },

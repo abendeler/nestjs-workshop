@@ -4,12 +4,11 @@ import { CreateTaskRequest } from './types/events/create-task.request';
 import { Task } from './types/entities/task';
 import { TaskPaginationResponse } from './types/api/task-pagination.response.type';
 import { UpdateTaskRequest } from './types/events/update-task.request';
-import { ATasksService } from './types/providers/tasks.repository';
 import { PaginationQueryParams } from './types/api/pagination-query-params.type';
 import { WithCreator } from './types/partials/with-creator.type';
 
 @Injectable()
-export class TasksService implements ATasksService {
+export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
   public async getTasksByCreator({
