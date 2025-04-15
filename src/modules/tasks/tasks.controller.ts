@@ -8,8 +8,9 @@ import {
   Controller,
   UseFilters,
   Query,
+  Delete,
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
+import { TasksService } from './types/providers/tasks.service';
 import { Task } from './types/entities/task';
 import { ApiTags } from '@nestjs/swagger';
 import { TaskNotFoundExceptionFilter } from './exceptions/task-not-found.exception.filter';
@@ -65,5 +66,13 @@ export class TasksController {
     @Param() { id }: IdParamsDto,
   ): Promise<Task> {
     return this.tasksService.markAsComplete(creator, id);
+  }
+
+  @Delete(':id')
+  public async deleteTask(
+    @CreatorHeader() { creator }: CreatorDto,
+    @Param() { id }: IdParamsDto,
+  ): Promise<void> {
+    return this.tasksService.deleteTask(creator, id);
   }
 }
