@@ -1,18 +1,25 @@
-# NestJs Workshop
+## Exercise 4: custom providers
 
-## Modules
+### value provider
 
-Modules are stand alone NestJs components that (generally speaking) have no knowledge of the outside. This means that you need to declare explicitly what its dependencies are as well as what it will expose to the outside.
+- create an .env file
+- declare PORT as 8088 or any port you wish and test from now on on that port
+- run `npm run dev`
+- notice the error
+- navigate to tasks-options.module.ts
+- uncomment the import
+- uncomment the commented provider object. Fill in the missing values
+- save and test it using postman / insomnia (check the controller which path)
+- comment what you have done in step 2 and declare a provider using a factory provider.
 
-To tell NestJs that a class is a module, you need to annotate it with the @Module decorator. This decorator takes in an object with the following optional parameters:
+### provider value
 
-- imports: this is an array of all stand alone modules that the current module is dependent on
-- providers: this is an array of all providers part of the current module.
-- exports: this is an array of all providers declared on this module that may be used in another module that imports this module.
+Often we want to provide something dynamically. The most obvious use case is when it concerns environment variables, where certain (sensitive) information depend on which environment you are running. The useFactory pattern is the right pattern for this. The factory provider allows injection of other (known!) providers.
 
-## Exercise 1:
-
-- run the app using the command `npm run start:dev`
-- Go to app.module.ts
-- Notice that AppModule has no dependencies.
-- Import TasksModule and declare that it is a dependency of AppModule
+- add TASK_OPTIONS='task1FromEnv,task2FromEnv'
+- go to app.module.ts
+- notice that configModule is called in the imports array. forRoot means it is for the highest module in the tree. The option "isGlobal" makes it available for all other modules in app.module.
+- navigate to task-options.provider.ts and use ConfigService to get the value of TASK_OPTIONS
+- go back to task-options.module and declare the provider using a factory provider
+- save and notice an error in the console. A dependency is missing. Can you fix it?
+- save once resolved and test the endpoint (see controller which path) and notice the difference
