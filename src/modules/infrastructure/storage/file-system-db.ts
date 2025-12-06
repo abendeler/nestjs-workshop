@@ -7,7 +7,6 @@ import {
   CreateTaskRequest,
   Task,
   TaskPaginationResponse,
-  UpdateTaskRequest,
 } from 'src/types';
 
 @Injectable()
@@ -51,7 +50,7 @@ export class FileSystemDb implements TasksRepository {
     }
     return tasks[taskIndex];
   }
-  async updateTask(task: UpdateTaskRequest): Promise<Task> {
+  async updateTask(task: Task): Promise<Task> {
     const { creator, id, description, dueDate, title } = task;
     const tasks = await this.db.getObjectDefault<Task[]>(`/${creator}`, []);
     const taskIndex = tasks.findIndex((t) => t.id === id);
