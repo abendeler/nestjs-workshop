@@ -1,5 +1,5 @@
 import { IsBoolean, IsDate, IsOptional, IsString } from 'class-validator';
-import { Task } from '../types/entities/task';
+import { Task } from '../../../types/entities/task';
 import { Expose, Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 

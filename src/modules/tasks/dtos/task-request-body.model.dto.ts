@@ -1,7 +1,8 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
 import { IsString, IsOptional, IsDate } from 'class-validator';
-import { TaskRequestBody } from '../types/api/task-request-body';
+import { addWeeks } from 'date-fns';
+import { TaskRequestBody } from 'src/types';
 
 export class TaskRequestBodyDto implements TaskRequestBody {
   @ApiPropertyOptional({
@@ -24,7 +25,7 @@ export class TaskRequestBodyDto implements TaskRequestBody {
 
   @ApiPropertyOptional({
     description: 'Due date of the task',
-    example: '2021-12-31T23:59:59.999Z',
+    example: addWeeks(new Date(), 1),
   })
   @Expose()
   @IsOptional()
