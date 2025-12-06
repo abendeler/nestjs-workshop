@@ -1,7 +1,9 @@
-import { TaskPaginationResponse } from '../api/task-pagination.response.type';
+import {
+  TaskPaginationResponse,
+  CreateTaskRequest,
+  UpdateTaskRequest,
+} from 'src/types/tasks';
 import { Task } from '../entities/task';
-import { CreateTaskRequest } from '../events/create-task.request';
-import { UpdateTaskRequest } from '../events/update-task.request';
 
 export abstract class TasksRepository {
   public abstract getTasksByCreator(

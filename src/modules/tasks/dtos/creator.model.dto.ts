@@ -1,6 +1,5 @@
 import { ApiHeader, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, validateSync } from 'class-validator';
-import { WithCreator } from '../types/partials/with-creator.type';
 import { Expose, plainToClass } from 'class-transformer';
 import {
   BadRequestException,
@@ -8,6 +7,7 @@ import {
   ExecutionContext,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { WithCreator } from 'src/types';
 import { flattenValidationErrors } from 'src/utils/flatten-validation-errors';
 
 export class CreatorDto implements WithCreator {
@@ -34,7 +34,7 @@ export function CreatorHeader(): ParameterDecorator {
   return (target, propertyKey, parameterIndex) => {
     extractHeaders(target, propertyKey, parameterIndex);
     if (!propertyKey)
-      throw new TypeError('@UserClaim() must be applied to a method');
+      throw new TypeError('@CreatorHeader() must be applied to a method');
     applyMethodDecorator(
       ApiHeader({
         required: false,

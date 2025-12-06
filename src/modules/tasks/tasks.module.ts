@@ -1,26 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TasksController } from './tasks.controller';
-import { TasksService } from './types/providers/tasks.service';
-import { TasksServiceImplementation } from './tasks.service';
-import { TasksRepository } from './types/providers/tasks.repository';
-import { ConfigService } from '@nestjs/config';
-import { TasksRepositoryImplementation } from './tasks.repository';
-import { TaskModel } from './types/providers/task.model';
-import { TaskModelConfigProvider } from './config/task-model-config.provider';
+import { TasksService } from './tasks.service';
+import { StorageModule } from '../infrastructure/storage/storage.module';
 
 @Module({
-  providers: [
-    { provide: TasksService, useClass: TasksServiceImplementation },
-    {
-      provide: TasksRepository,
-      useClass: TasksRepositoryImplementation,
-    },
-    {
-      provide: TaskModel,
-      useFactory: TaskModelConfigProvider,
-      inject: [ConfigService],
-    },
-  ],
+  imports: [StorageModule.registerAsync()],
+  providers: [{ provide: TasksService, useClass: TasksService }],
   controllers: [TasksController],
 })
 export class TasksModule {}

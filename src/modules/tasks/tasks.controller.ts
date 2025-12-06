@@ -10,16 +10,21 @@ import {
   Query,
   Delete,
 } from '@nestjs/common';
-import { TasksService } from './types/providers/tasks.service';
-import { Task } from './types/entities/task';
+import { Task } from '../../types/entities/task';
 import { ApiTags } from '@nestjs/swagger';
-import { TaskNotFoundExceptionFilter } from './exceptions/task-not-found.exception.filter';
-import { PaginationQueryParamstDto } from './dtos/pagination-query-params.model.dto';
-import { TasksPaginationResponseDto } from './dtos/pagination.model.dto';
-import { CreatorDto, CreatorHeader } from './dtos/creator.model.dto';
-import { TaskRequestBodyDto } from './dtos/task-request-body.model.dto';
-import { IdParamsDto } from './dtos/id.model.dto';
-import { UserNotFoundExceptionFilter } from './exceptions/user-not-found.exception.filter';
+import { TasksService } from './tasks.service';
+import {
+  CreatorHeader,
+  CreatorDto,
+  PaginationQueryParamstDto,
+  TasksPaginationResponseDto,
+  IdParamsDto,
+  TaskRequestBodyDto,
+} from './dtos';
+import {
+  UserNotFoundExceptionFilter,
+  TaskNotFoundExceptionFilter,
+} from './exceptions';
 
 @ApiTags('tasks')
 @Controller('tasks')

@@ -24,6 +24,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, documentFactory);
   const port: number = configService.getOrThrow('PORT');
   await app.listen(port);
-  logger.log(`server listening on port ${port}`);
+  logger.log(`Application is running on: http://localhost:${port}`);
 }
+
 bootstrap();
