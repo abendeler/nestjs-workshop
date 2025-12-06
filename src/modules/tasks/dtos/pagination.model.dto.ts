@@ -2,9 +2,9 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import { IsArray, IsNumber, ValidateNested } from 'class-validator';
 import { TaskDto } from '../dtos/task.model.dto';
-import { Pagination } from '../types/api/pagination.type';
+import { Pagination, Task } from 'src/types';
 
-export class TasksPaginationResponseDto implements Pagination<TaskDto> {
+export class TasksPaginationResponseDto implements Pagination<Task> {
   @ApiPropertyOptional()
   @IsNumber()
   @Transform(({ value }: { value?: string }) => Number(value || 0))
@@ -23,5 +23,5 @@ export class TasksPaginationResponseDto implements Pagination<TaskDto> {
   @IsArray()
   @Type(() => TaskDto)
   @ValidateNested({ each: true })
-  data!: TaskDto[];
+  data!: Task[];
 }

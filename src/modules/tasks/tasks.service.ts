@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskRequest } from './types/events/create-task.request';
-import { Task } from './types/entities/task';
-import { TaskPaginationResponse } from './types/api/task-pagination.response.type';
-import { UpdateTaskRequest } from './types/events/update-task.request';
-import { PaginationQueryParams } from './types/api/pagination-query-params.type';
-import { WithCreator } from './types/partials/with-creator.type';
-import { TasksRepository } from './types/providers/tasks.repository';
-import { TasksService } from './types/providers/tasks.service';
+import {
+  CreateTaskRequest,
+  PaginationQueryParams,
+  Task,
+  TaskPaginationResponse,
+  TasksRepository,
+  UpdateTaskRequest,
+  WithCreator,
+} from 'src/types';
 
 @Injectable()
-export class TasksServiceImplementation implements TasksService {
+export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
   public async getTasksByCreator({
