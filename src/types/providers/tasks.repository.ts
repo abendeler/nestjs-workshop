@@ -4,7 +4,9 @@ import {
   UpdateTaskRequest,
 } from 'src/types/tasks';
 import { Task } from '../entities/task';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export abstract class TasksRepository {
   public abstract getTasksByCreator(
     creator: string,
