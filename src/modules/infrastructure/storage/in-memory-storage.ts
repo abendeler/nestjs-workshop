@@ -6,7 +6,6 @@ import {
   Task,
   TaskPaginationResponse,
   CreateTaskRequest,
-  UpdateTaskRequest,
 } from 'src/types';
 
 @Injectable()
@@ -52,7 +51,7 @@ export class InMemoryStorage implements TasksRepository {
     return Promise.resolve(task);
   }
 
-  public async updateTask(task: UpdateTaskRequest): Promise<Task> {
+  public async updateTask(task: Task): Promise<Task> {
     const { creator, id, description, dueDate, title } = task;
     const taskIndex = this.tasks.findIndex(
       (t) => t.creator === creator && t.id === id,
