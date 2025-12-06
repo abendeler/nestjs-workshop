@@ -46,7 +46,7 @@ export class InMemoryStorage implements TasksRepository {
       ...request,
       completed: false,
       createdDate: new Date(),
-      id: uuidv1().replace(/-/g, ''),
+      id: uuidv1(),
     };
     this.tasks.push(task);
     return Promise.resolve(task);

@@ -27,7 +27,7 @@ export class FileSystemDb implements TasksRepository {
       ...request,
       completed: false,
       createdDate: new Date(),
-      id: uuidv1().replace(/-/g, ''),
+      id: uuidv1(),
     };
     const path = `/${request.creator}`;
     const existingTasks = await this.db.getObjectDefault<Task[]>(path, []);
