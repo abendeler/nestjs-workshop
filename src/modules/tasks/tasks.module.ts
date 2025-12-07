@@ -1,11 +1,4 @@
-import { Module } from '@nestjs/common';
-import { TasksController } from './tasks.controller';
-import { TasksService } from './tasks.service';
-import { StorageModule } from '../infrastructure/storage/storage.module';
+// import { Module } from '@nestjs/common';
 
-@Module({
-  imports: [StorageModule.registerAsync()],
-  providers: [{ provide: TasksService, useClass: TasksService }],
-  controllers: [TasksController],
-})
+// make this class recogisable for NestJs as a Module
 export class TasksModule {}

@@ -15,4 +15,9 @@ To tell NestJs that a class is a module, you need to annotate it with the @Modul
 - run the app using the command `npm run start:dev`
 - Go to app.module.ts
 - Notice that AppModule has no dependencies.
+- Go to tasks.module.ts and add the relevant decorator.
+- Go to app.module.ts and add TaskModule to AppModule
 - Import TasksModule and declare that it is a dependency of AppModule
+- Create another module with the name of your choosing
+- Import this module in TasksModule
+- Check in the logs if your module is being loaded
