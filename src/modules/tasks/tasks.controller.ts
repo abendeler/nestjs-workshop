@@ -1,83 +1,22 @@
-import {
-  Get,
-  Param,
-  Post,
-  Body,
-  Put,
-  Patch,
-  Controller,
-  UseFilters,
-  Query,
-  Delete,
-} from '@nestjs/common';
-import { Task } from '../../types/entities/task';
-import { ApiTags } from '@nestjs/swagger';
-import { TasksService } from './tasks.service';
-import {
-  CreatorHeader,
-  CreatorDto,
-  PaginationQueryParamstDto,
-  TasksPaginationResponseDto,
-  IdParamsDto,
-  TaskRequestBodyDto,
-} from './dtos';
-import {
-  UserNotFoundExceptionFilter,
-  TaskNotFoundExceptionFilter,
-} from './exceptions';
-
-@ApiTags('tasks')
-@Controller('tasks')
-@UseFilters(UserNotFoundExceptionFilter, TaskNotFoundExceptionFilter)
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
-
-  @Get()
-  public async getTasksBycreator(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Query() queryParams: PaginationQueryParamstDto,
-  ): Promise<TasksPaginationResponseDto> {
-    return this.tasksService.getTasksByCreator({ creator, ...queryParams });
+  // TODO: declare this method as a GET endpoint for all tasks
+  // Test it using Postman or Insomnia
+  // NOTE: see what happens when you pass in a string in the route handler decorator as you make the request again
+  // Revert the change and keep the route handler decorator empty
+  public getTasksBycreator() {
+    return [];
   }
 
-  @Get(':id')
-  public async getTaskById(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Param() { id }: IdParamsDto,
-  ): Promise<Task> {
-    return this.tasksService.getTaskById(creator, id);
+  // TODO: declare this method as a GET endpoint for a specific task by id
+  // NOTE: find out how you can pass in the "id" path parameter to this method (hint: use param decorator)
+  // return the id for now
+  public getTaskById() {
+    // outcomment line below once you have extracted the  id request param
+    // return id;
   }
 
-  @Post()
-  public async createTask(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Body() body: TaskRequestBodyDto,
-  ): Promise<Task> {
-    return this.tasksService.createTask({ ...body, creator });
-  }
-
-  @Put(':id')
-  public async updateTask(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Param() { id }: IdParamsDto,
-    @Body() body: TaskRequestBodyDto,
-  ): Promise<Task> {
-    return this.tasksService.updateTask({ creator, id, ...body });
-  }
-
-  @Patch(':id/complete')
-  public async markAsComplete(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Param() { id }: IdParamsDto,
-  ): Promise<Task> {
-    return this.tasksService.markAsComplete(creator, id);
-  }
-
-  @Delete(':id')
-  public async deleteTask(
-    @CreatorHeader() { creator }: CreatorDto,
-    @Param() { id }: IdParamsDto,
-  ): Promise<void> {
-    return this.tasksService.deleteTask(creator, id);
-  }
+  // TODO: declare this method as a POST endpoint to create a new task
+  // NOTE: find out how you can extract the request body into the "body" parameter
+  // Return the body for now
+  public createTask() {}
 }
