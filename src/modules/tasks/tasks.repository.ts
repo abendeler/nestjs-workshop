@@ -1,24 +1,28 @@
 import { v1 as uuidv1 } from 'uuid';
-import { Injectable, Logger } from '@nestjs/common';
+import { Logger, OnModuleInit } from '@nestjs/common';
 import { Config, JsonDB } from 'node-json-db';
 import { TaskNotFoundException } from 'src/modules/tasks/exceptions';
 import {
-  TasksRepository,
   CreateTaskRequest,
   Task,
   TaskPaginationResponse,
+  UpdateTaskRequest,
 } from 'src/types';
+import * as path from 'path';
 
-@Injectable()
-export class FileSystemDb implements TasksRepository {
-  private logger = new Logger(FileSystemDb.name);
+export class TasksRepository implements OnModuleInit {
+  private logger = new Logger(TasksRepository.name);
   private db: JsonDB;
 
-  constructor(private readonly dbConfig: Config) {}
-
   onModuleInit() {
-    this.db = new JsonDB(this.dbConfig);
-    this.logger.log(FileSystemDb.name + ' initialized');
+    const dbFilePath = 'tasks.json';
+    const saveOnPush = true;
+    const humanReadable = false;
+    const pathToFile = path.resolve(__dirname, dbFilePath);
+
+    const config = new Config(pathToFile, saveOnPush, humanReadable, '/');
+    this.db = new JsonDB(config);
+    this.logger.log(TasksRepository.name + ' initialized');
   }
 
   async createTask(request: CreateTaskRequest): Promise<Task> {
@@ -50,7 +54,7 @@ export class FileSystemDb implements TasksRepository {
     }
     return tasks[taskIndex];
   }
-  async updateTask(task: Task): Promise<Task> {
+  async updateTask(task: UpdateTaskRequest): Promise<Task> {
     const { creator, id, description, dueDate, title } = task;
     const tasks = await this.db.getObjectDefault<Task[]>(`/${creator}`, []);
     const taskIndex = tasks.findIndex((t) => t.id === id);
