@@ -1,43 +1,43 @@
-import { Injectable } from '@nestjs/common';
 import {
   CreateTaskRequest,
   PaginationQueryParams,
   Task,
   TaskPaginationResponse,
-  TasksRepository,
   UpdateTaskRequest,
   WithCreator,
 } from 'src/types';
+import { TasksRepository } from './tasks.repository';
 
-@Injectable()
+// FIXME: declare this class to be a provider (Injectable)
+
 export class TasksService {
-  constructor(private readonly tasksRepository: TasksRepository) {}
+  constructor(private readonly repository: TasksRepository) {}
 
   public async getTasksByCreator({
     creator,
     offset,
     limit,
   }: PaginationQueryParams & WithCreator): Promise<TaskPaginationResponse> {
-    return this.tasksRepository.getTasksByCreator(creator, offset, limit);
+    throw new Error('Method not implemented.');
   }
 
   public async getTaskById(creator: string, id: string): Promise<Task> {
-    return this.tasksRepository.getTaskById(creator, id);
+    throw new Error('Method not implemented.');
   }
 
   public async createTask(request: CreateTaskRequest): Promise<Task> {
-    return this.tasksRepository.createTask(request);
+    throw new Error('Method not implemented.');
   }
 
   public async deleteTask(creator: string, id: string): Promise<void> {
-    return this.tasksRepository.deleteTask(creator, id);
+    throw new Error('Method not implemented.');
   }
 
   public async updateTask(request: UpdateTaskRequest): Promise<Task> {
-    return this.tasksRepository.updateTask(request);
+    throw new Error('Method not implemented.');
   }
 
   public async markAsComplete(creator: string, id: string): Promise<Task> {
-    return this.tasksRepository.markAsComplete(creator, id);
+    throw new Error('Method not implemented.');
   }
 }

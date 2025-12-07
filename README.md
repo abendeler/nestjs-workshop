@@ -1,18 +1,29 @@
 # NestJs Workshop
 
-## Modules
+## Providers
 
-Modules are stand alone NestJs components that (generally speaking) have no knowledge of the outside. This means that you need to declare explicitly what its dependencies are as well as what it will expose to the outside.
-
-To tell NestJs that a class is a module, you need to annotate it with the @Module decorator. This decorator takes in an object with the following optional parameters:
-
-- imports: this is an array of all stand alone modules that the current module is dependent on
-- providers: this is an array of all providers part of the current module.
-- exports: this is an array of all providers declared on this module that may be used in another module that imports this module.
+Providers are the building blocks of your application logic. They could be encapsulating services (that could call other services), repositories, domain logic etc. They are the working units inside modules. For now we will just explore the simple way of declaring and loading providers. Later we will look at how to declare and implement custom providers
 
 ## Exercise 1:
 
-- run the app using the command `npm run start:dev`
-- Go to app.module.ts
-- Notice that AppModule has no dependencies.
-- Import TasksModule and declare that it is a dependency of AppModule
+- run the dev server. Read the log
+- It complains about a missing provider. We need to let NestJs know which class will be the provider
+- Open tasks.module.ts
+- Notice that the providers array is empty
+- Open tasks.service.ts
+- Declare TasksService to be a provider
+- On save, notice that the error isnt going away
+- Go to tasks.module.ts
+- Add TasksService as provider and save
+- The error disappears
+
+We actually want to save what we are passing to the server and also retrieve it. We need another provider
+
+- Open tasks.repository.ts
+- Declare this class as a provider
+- Go back to tasks.service.ts
+- inject the TasksRepository in the class (hint: constructor) and save
+- Check the logs: TasksRepository cannot be solved.
+- Fix the problem (hint, declare it in tasks.module.ts)
+- populate the function bodies of the server with the proper repository methods
+- test the implementation
