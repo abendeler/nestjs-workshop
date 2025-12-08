@@ -7,37 +7,39 @@ import {
   WithCreator,
 } from 'src/types';
 import { TasksRepository } from './tasks.repository';
+import { Injectable } from '@nestjs/common';
 
 // FIXME: declare this class to be a provider (Injectable)
 
+@Injectable()
 export class TasksService {
-  constructor(private readonly repository: TasksRepository) {}
+  constructor(private readonly tasksRepository: TasksRepository) {}
 
   public async getTasksByCreator({
     creator,
     offset,
     limit,
   }: PaginationQueryParams & WithCreator): Promise<TaskPaginationResponse> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.getTasksByCreator(creator, offset, limit);
   }
 
   public async getTaskById(creator: string, id: string): Promise<Task> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.getTaskById(creator, id);
   }
 
   public async createTask(request: CreateTaskRequest): Promise<Task> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.createTask(request);
   }
 
   public async deleteTask(creator: string, id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.deleteTask(creator, id);
   }
 
   public async updateTask(request: UpdateTaskRequest): Promise<Task> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.updateTask(request);
   }
 
   public async markAsComplete(creator: string, id: string): Promise<Task> {
-    throw new Error('Method not implemented.');
+    return this.tasksRepository.markAsComplete(creator, id);
   }
 }
